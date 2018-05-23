@@ -1,0 +1,12 @@
+body {
+  background-image: url("./images/norwegian_rose_@2X.png");
+  background-repeat: repeat;
+}
+
+.navbar {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  height: 50px;
+}

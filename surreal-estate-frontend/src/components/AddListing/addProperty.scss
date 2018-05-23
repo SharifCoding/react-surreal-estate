@@ -1,0 +1,10 @@
+.add-property-container {
+  display: flex;
+  padding-top: 100px;
+  margin-bottom: 20px;
+  justify-content: space-around;
+  width: 100%;
+  > form {
+    min-width: 500px;
+  }
+}
