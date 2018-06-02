@@ -35,6 +35,8 @@ restify.serve(router, PropertyListingModel);
 
 app.use(router);
 
+app.post('http://localhost:3000/api/v1/PropertyListing', PropertyListingModel.post);
+
 expressListRoutes({}, 'Endpoints:', router );
 
 app.listen(3000, () => {

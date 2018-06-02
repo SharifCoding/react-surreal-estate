@@ -3,13 +3,13 @@ Bootstrap React project for Week 15 at Manchester Codes
 
 <b>Please Note:</b> This repository contain two repositories; an APi (managing data), and Frontend (viewing data). You need to generate some data beforehand.
 
-Making a make HTTP requests in React; going to be covering forms, form validation, posting data to API and routing in React, a popular front-end framework for building user interfaces.
+Making a HTTP requests in React; going to be covering forms, form validation, posting data to API and routing in React, a popular front-end framework for building user interfaces.
 
-### Surreal Estate API
+### [Surreal Estate API](./surreal-estate-api/README.md)
 ![API](./surreal-estate-api/img/surreal-estate-api.png "Surreal Estate API")
 
-### Surreal Estate Frontend
-![Frontend](./surreal-estate-frontend/img/estateFrontend.png "Surreal Estate Frontend")
+### [Surreal Estate Frontend](./surreal-estate-frontend/README.md)
+![Frontend](./surreal-estate-frontend/img/estate-frontend.png "Surreal Estate Frontend")
 
 #### Concepts
 - HTML Forms

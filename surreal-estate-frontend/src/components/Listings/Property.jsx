@@ -29,6 +29,7 @@ Property.propTypes = {
   bathrooms: number.isRequired,
   price: number.isRequired,
   city: string.isRequired,
+  email: string.isRequired,
 };
 
 export default Property;
