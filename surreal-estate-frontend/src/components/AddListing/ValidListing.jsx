@@ -17,7 +17,15 @@ export const FormErrors = ({ formErrors }) =>
   );
 
 FormErrors.propTypes = {
-  formErrors: PropTypes.func.isRequired,
+  formErrors: PropTypes.shape({
+    propertyTitleValid: PropTypes.bool,
+    propertyTypeValid: PropTypes.bool,
+    bedroomValid: PropTypes.bool,
+    bathroomValid: PropTypes.bool,
+    priceValid: PropTypes.bool,
+    cityValid: PropTypes.bool,
+    emailValid: PropTypes.bool,
+  }).isRequired,
 };
 
 export default FormErrors;

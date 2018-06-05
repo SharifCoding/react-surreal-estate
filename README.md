@@ -21,5 +21,11 @@ Making a HTTP requests in React; going to be covering forms, form validation, po
 ### [Surreal Estate API](./surreal-estate-api/README.md)
 ![API](./surreal-estate-api/img/surreal-estate-api.png "Surreal Estate API")
 
+#### Surreal Estate API - Add Property
+![API](./surreal-estate-api/img/apiPOSTid.png "Surreal Estate API")
+
 ### [Surreal Estate Frontend](./surreal-estate-frontend/README.md)
 ![Frontend](./surreal-estate-frontend/img/estate-frontend.png "Surreal Estate Frontend")
+
+#### Surreal Estate Frontend - Add Property
+![Add Property](./surreal-estate-frontend/img/add-property.png "Surreal Estate Frontend")
