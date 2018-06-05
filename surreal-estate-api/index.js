@@ -9,6 +9,8 @@ const router = express.Router();
 const expressListRoutes   = require('express-list-routes');
 const PropertyListingModel = require('./models/property');
 
+const { post } = require('./routes/post');
+
 require('dotenv').config({
   path: path.join(__dirname, './settings.env'),
 });
@@ -35,7 +37,7 @@ restify.serve(router, PropertyListingModel);
 
 app.use(router);
 
-app.post('http://localhost:3000/api/v1/PropertyListing', PropertyListingModel.post);
+app.use('/api/v1/PropertyListing', post);
 
 expressListRoutes({}, 'Endpoints:', router );
 

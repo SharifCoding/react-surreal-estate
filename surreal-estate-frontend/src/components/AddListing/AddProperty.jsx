@@ -18,9 +18,19 @@ class AddProperty extends React.Component {
       email: '',
       formErrors: {
         propertyTitle: '',
+        propertyTypeSelect: '',
+        bedroomInput: '',
+        bathroomInput: '',
+        price: '',
+        citySelect: '',
         email: '',
       },
       propertyTitleValid: false,
+      propertyTypeValid: false,
+      bedroomValid: false,
+      bathroomValid: false,
+      priceValid: false,
+      cityValid: false,
       emailValid: false,
       formValid: false,
     };
@@ -39,16 +49,41 @@ class AddProperty extends React.Component {
   validateField(fieldName, value) {
     const fieldValidationErrors = this.state.formErrors;
     let propertyTitleValid = this.state.propertyTitleValid; // eslint-disable-line
+    let propertyTypeValid = this.state.propertyTypeValid; // eslint-disable-line
+    let bedroomValid = this.state.bedroomValid; // eslint-disable-line
+    let bathroomValid = this.state.bathroomValid; // eslint-disable-line
+    let priceValid = this.state.priceValid; // eslint-disable-line
+    let cityValid = this.state.cityValid; // eslint-disable-line
     let emailValid = this.state.emailValid; // eslint-disable-line prefer-destructuring
 
     switch (fieldName) {
       case 'propertyTitle':
-        propertyTitleValid = value.length >= 6;
-        fieldValidationErrors.propertyTitle = propertyTitleValid ? '' : ' is too short';
+        propertyTitleValid = value.length >= 10;
+        fieldValidationErrors.propertyTitle = propertyTitleValid ? '' : ' should have at least 80 characters';
+        break;
+      case 'propertyTypeSelect':
+        propertyTypeValid = value !== 'none';
+        fieldValidationErrors.propertyTypeSelect = propertyTypeValid ? '' : ' should be selected from the list';
+        break;
+      case 'bedroomInput':
+        bedroomValid = value >= 0;
+        fieldValidationErrors.bedroomInput = bedroomValid ? '' : ' should be a positive number';
+        break;
+      case 'bathroomInput':
+        bathroomValid = value >= 1;
+        fieldValidationErrors.bathroomInput = bathroomValid ? '' : ' should be a positive number';
+        break;
+      case 'price':
+        priceValid = (value >= 100000) && (value <= 250000);
+        fieldValidationErrors.price = priceValid ? '' : ' should be between £100k and £250k';
+        break;
+      case 'citySelect':
+        cityValid = value !== 'none';
+        fieldValidationErrors.citySelect = cityValid ? '' : ' should be selected from the list';
         break;
       case 'email':
         emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-        fieldValidationErrors.email = emailValid ? '' : ' is invalid';
+        fieldValidationErrors.email = emailValid ? '' : ' is not valid contact detail';
         break;
       default:
         break;
@@ -56,37 +91,46 @@ class AddProperty extends React.Component {
     this.setState({
       formErrors: fieldValidationErrors,
       propertyTitleValid,
+      propertyTypeValid,
+      bedroomValid,
+      bathroomValid,
+      priceValid,
+      cityValid,
       emailValid,
     }, this.validateForm);
   }
 
   validateForm() {
     this.setState({
-      formValid: this.state.propertyTitleValid && this.state.emailValid,
+      formValid: this.state.propertyTitleValid
+      && this.state.propertyTypeValid
+      && this.state.bedroomValid
+      && this.state.bathroomValid
+      && this.state.priceValid
+      && this.state.cityValid
+      && this.state.emailValid,
     });
   }
 
   handleSubmit() {
-    axios.post('http://localhost:3000/api/v1/PropertyListing')
-      .then((response) => {
-        this.setState({
-          propertyTitle: response.data.title,
-          propertyTypeSelect: response.data.type,
-          bedroomInput: response.data.bedrooms,
-          bathroomInput: response.data.bathrooms,
-          price: response.data.price,
-          citySelect: response.data.city,
-          email: response.data.email,
-        });
-      }).catch((err) => {
-        throw err;
+    axios.post('http://localhost:3000/api/v1/PropertyListing', {
+      propertyTitle: this.state.title,
+      propertyTypeSelect: this.state.type,
+      bedroomInput: this.state.bedrooms,
+      bathroomInput: this.state.bathrooms,
+      price: this.state.price,
+      citySelect: this.state.city,
+      email: this.state.email,
+    })
+      .then(() => {
+        this.prop.history.push('/');
       });
   }
 
   render() {
     return (
       <div className="add-property-container">
-        <form>
+        <form action="http://localhost:3000/api/v1/PropertyListing" method="post">
           <div className="form-group row">
             <label htmlFor="propertyTitle" className="col-sm-2 col-form-label">Title</label>
             <div className={`col-sm-10 ${this.state.formErrors.propertyTitle}`}>
