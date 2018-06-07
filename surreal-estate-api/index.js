@@ -9,8 +9,6 @@ const router = express.Router();
 const expressListRoutes   = require('express-list-routes');
 const PropertyListingModel = require('./models/property');
 
-const { post } = require('./routes/post');
-
 require('dotenv').config({
   path: path.join(__dirname, './settings.env'),
 });
@@ -25,6 +23,7 @@ app.use(function(req, res, next){
   whitelist.forEach(function(val, key){
     if (origin.indexOf(val) > -1){
       res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
     }
   })
 
@@ -36,8 +35,6 @@ mongoose.connect(process.env.DATABASE_CONN);
 restify.serve(router, PropertyListingModel);
 
 app.use(router);
-
-app.use('/api/v1/PropertyListing', post);
 
 expressListRoutes({}, 'Endpoints:', router );
 

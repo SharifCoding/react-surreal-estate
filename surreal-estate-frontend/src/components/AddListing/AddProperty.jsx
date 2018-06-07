@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import { FormErrors } from './ValidListing';
 
@@ -48,13 +49,15 @@ class AddProperty extends React.Component {
 
   validateField(fieldName, value) {
     const fieldValidationErrors = this.state.formErrors;
-    let propertyTitleValid = this.state.propertyTitleValid; // eslint-disable-line
-    let propertyTypeValid = this.state.propertyTypeValid; // eslint-disable-line
-    let bedroomValid = this.state.bedroomValid; // eslint-disable-line
-    let bathroomValid = this.state.bathroomValid; // eslint-disable-line
-    let priceValid = this.state.priceValid; // eslint-disable-line
-    let cityValid = this.state.cityValid; // eslint-disable-line
-    let emailValid = this.state.emailValid; // eslint-disable-line prefer-destructuring
+    // let propertyTitleValid = this.state.propertyTitleValid;
+    // eslint error - prefer-destructuring
+    let { propertyTitleValid } = this.state;
+    let { propertyTypeValid } = this.state;
+    let { bedroomValid } = this.state;
+    let { bathroomValid } = this.state;
+    let { priceValid } = this.state;
+    let { cityValid } = this.state;
+    let { emailValid } = this.state;
 
     switch (fieldName) {
       case 'propertyTitle':
@@ -112,25 +115,26 @@ class AddProperty extends React.Component {
     });
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault();
     axios.post('http://localhost:3000/api/v1/PropertyListing', {
-      propertyTitle: this.state.title,
-      propertyTypeSelect: this.state.type,
-      bedroomInput: this.state.bedrooms,
-      bathroomInput: this.state.bathrooms,
+      title: this.state.propertyTitle,
+      type: this.state.propertyTypeSelect,
+      bedrooms: this.state.bedroomInput,
+      bathrooms: this.state.bathroomInput,
       price: this.state.price,
-      citySelect: this.state.city,
+      city: this.state.citySelect,
       email: this.state.email,
     })
       .then(() => {
-        this.prop.history.push('/');
+        this.props.history.push('/');
       });
   }
 
   render() {
     return (
       <div className="add-property-container">
-        <form action="http://localhost:3000/api/v1/PropertyListing" method="post">
+        <form onSubmit={this.handleSubmit} action="http://localhost:3000/api/v1/PropertyListing" method="post">
           <div className="form-group row">
             <label htmlFor="propertyTitle" className="col-sm-2 col-form-label">Title</label>
             <div className={`col-sm-10 ${this.state.formErrors.propertyTitle}`}>
@@ -239,7 +243,6 @@ class AddProperty extends React.Component {
                 type="submit"
                 className="btn btn-primary"
                 disabled={!this.state.formValid}
-                onClick={() => this.state.handleSubmit}
               >Add Listing
               </button>
             </div>
@@ -259,6 +262,12 @@ class AddProperty extends React.Component {
     );
   }
 }
+
+AddProperty.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 // export library
 export default AddProperty;
